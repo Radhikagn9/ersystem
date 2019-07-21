@@ -1,0 +1,52 @@
+2019-07-12 21:39:18 INFO  ConnectionUtil:36 - Connection successful
+2019-07-14 19:13:04 TRACE EmployeeRepositoryJdbc:136 - Finding User Information
+2019-07-14 19:13:08 INFO  EmployeeRepositoryJdbc:346 - Employee [id=0, firstName=null, lastName=null, username=null, password=null, email=null, urId=0, role=null]
+2019-07-14 19:19:00 TRACE EmployeeRepositoryJdbc:136 - Finding User Information
+2019-07-14 19:19:02 TRACE EmployeeRepositoryJdbc:149 - Found account
+2019-07-14 19:19:02 INFO  EmployeeRepositoryJdbc:348 - Employee [id=1, firstName=RACHEL, lastName=GARNER, username=RGARNER, password=123456, email=RGARNER@GMAIL.COM, urId=1, role=EMPLOYEE]
+2019-07-14 19:23:40 INFO  EmployeeRepositoryJdbc:351 - false
+2019-07-14 19:24:17 INFO  EmployeeRepositoryJdbc:351 - false
+2019-07-14 19:24:46 INFO  EmployeeRepositoryJdbc:351 - true
+2019-07-15 10:45:46 TRACE EmployeeRepositoryJdbc:136 - Finding User Information
+2019-07-15 10:45:58 TRACE EmployeeRepositoryJdbc:149 - Found account
+2019-07-15 13:08:23 TRACE EmployeeRepositoryJdbc:136 - Finding User Information
+2019-07-15 13:08:28 TRACE EmployeeRepositoryJdbc:149 - Found account
+2019-07-15 16:38:44 INFO  ConnectionUtil:36 - Connection successful
+2019-07-16 15:13:02 WARN  ReimbursementRepositoryJdbc:107 - Exception creating a new Reimbursement
+java.sql.SQLSyntaxErrorException: ORA-00904: "REIMB_TYPE": invalid identifier
+
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:450)
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:399)
+	at oracle.jdbc.driver.T4C8Oall.processError(T4C8Oall.java:1017)
+	at oracle.jdbc.driver.T4CTTIfun.receive(T4CTTIfun.java:655)
+	at oracle.jdbc.driver.T4CTTIfun.doRPC(T4CTTIfun.java:249)
+	at oracle.jdbc.driver.T4C8Oall.doOALL(T4C8Oall.java:566)
+	at oracle.jdbc.driver.T4CPreparedStatement.doOall8(T4CPreparedStatement.java:215)
+	at oracle.jdbc.driver.T4CPreparedStatement.doOall8(T4CPreparedStatement.java:58)
+	at oracle.jdbc.driver.T4CPreparedStatement.executeForDescribe(T4CPreparedStatement.java:776)
+	at oracle.jdbc.driver.OracleStatement.executeMaybeDescribe(OracleStatement.java:897)
+	at oracle.jdbc.driver.OracleStatement.doExecuteWithTimeout(OracleStatement.java:1034)
+	at oracle.jdbc.driver.OraclePreparedStatement.executeInternal(OraclePreparedStatement.java:3820)
+	at oracle.jdbc.driver.OraclePreparedStatement.executeQuery(OraclePreparedStatement.java:3867)
+	at oracle.jdbc.driver.OraclePreparedStatementWrapper.executeQuery(OraclePreparedStatementWrapper.java:1502)
+	at com.revature.repository.ReimbursementRepositoryJdbc.getTypes(ReimbursementRepositoryJdbc.java:98)
+	at com.revature.repository.ReimbursementRepositoryJdbc.main(ReimbursementRepositoryJdbc.java:188)
+2019-07-16 15:14:32 WARN  ReimbursementRepositoryJdbc:107 - Exception creating a new Reimbursement
+java.sql.SQLSyntaxErrorException: ORA-00904: "REIMB_TYPE": invalid identifier
+
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:450)
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:399)
+	at oracle.jdbc.driver.T4C8Oall.processError(T4C8Oall.java:1017)
+	at oracle.jdbc.driver.T4CTTIfun.receive(T4CTTIfun.java:655)
+	at oracle.jdbc.driver.T4CTTIfun.doRPC(T4CTTIfun.java:249)
+	at oracle.jdbc.driver.T4C8Oall.doOALL(T4C8Oall.java:566)
+	at oracle.jdbc.driver.T4CPreparedStatement.doOall8(T4CPreparedStatement.java:215)
+	at oracle.jdbc.driver.T4CPreparedStatement.doOall8(T4CPreparedStatement.java:58)
+	at oracle.jdbc.driver.T4CPreparedStatement.executeForDescribe(T4CPreparedStatement.java:776)
+	at oracle.jdbc.driver.OracleStatement.executeMaybeDescribe(OracleStatement.java:897)
+	at oracle.jdbc.driver.OracleStatement.doExecuteWithTimeout(OracleStatement.java:1034)
+	at oracle.jdbc.driver.OraclePreparedStatement.executeInternal(OraclePreparedStatement.java:3820)
+	at oracle.jdbc.driver.OraclePreparedStatement.executeQuery(OraclePreparedStatement.java:3867)
+	at oracle.jdbc.driver.OraclePreparedStatementWrapper.executeQuery(OraclePreparedStatementWrapper.java:1502)
+	at com.revature.repository.ReimbursementRepositoryJdbc.getTypes(ReimbursementRepositoryJdbc.java:98)
+	at com.revature.repository.ReimbursementRepositoryJdbc.main(ReimbursementRepositoryJdbc.java:188)
