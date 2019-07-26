@@ -39,9 +39,8 @@ public class RequestRepositoryJdbc implements RequestRepository{
 
 			statement.setLong(++statementIndex, request.getId());
 			statement.setString(++statementIndex, request.getType());
-			statement.setString(++statementIndex, request.getStatus().getType());
 			statement.setLong(++statementIndex, request.getAccountId());
-			statement.setLong(++statementIndex, request.getStatus().getId());
+			statement.setString(++statementIndex, request.getStatus());
 
 			if(statement.executeUpdate() > 0) {
 				return true;
@@ -118,9 +117,9 @@ public class RequestRepositoryJdbc implements RequestRepository{
 		try(Connection connection = ConnectionUtil.getConnection())
 		{
 			int statementIndex = 0;
-			String command="UPDATE REQUEST SET S_ID=? WHERE R_ID=?";
+			String command="UPDATE REQUEST SET R_STATUS=? WHERE R_ID=?";
 			PreparedStatement statement = connection.prepareStatement(command);
-			statement.setLong(++statementIndex,request.getStatus().getId());
+			statement.setString(++statementIndex,request.getStatus());
 			statement.setLong(++statementIndex,request.getId());
 			ResultSet result = statement.executeQuery();
 			if(result.next()) {
@@ -135,8 +134,158 @@ public class RequestRepositoryJdbc implements RequestRepository{
 	}
 	
 	
+	
+	@Override
+	public List<Request> lookAtRequest() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Request lookAtRequestByEmployee(long rID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Request lookAtRequestByEmployee(Request request) {
+		try(Connection connection = ConnectionUtil.getConnection())
+		{
+			int parameterIndex = 0;
+			String sql = "SELECT * FROM REQUEST WHERE A_ID = ?";
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setLong(++parameterIndex,request.getAccountId());
+			ResultSet result = statement.executeQuery();
+
+			//List<Request> RequestList = new ArrayList<>();
+			if(result.next()) {
+				return new Request(
+						result.getLong("R_ID"),
+						result.getString("R_TYPE"),
+						result.getString("R_STATUS"),
+						result.getLong("A_ID"));
+			}
+
+		} catch (SQLException e) {
+			logger.warn("Error on selecting on the employees", e);
+		}
+		return null; 
+	}
+
+	@Override
+	public List<Request> lookAtPendingRequests() {
+		
+		try(Connection connection = ConnectionUtil.getConnection())
+		{
+			String command = "SELECT * FROM REQUEST WHERE R_STATUS = 'Pending'";
+			PreparedStatement statement = connection.prepareStatement(command);
+			ResultSet result = statement.executeQuery();
+
+			List<Request> RequestList = new ArrayList<>();
+			while(result.next()) {
+				RequestList.add(new Request(
+						result.getLong("R_ID"),
+						result.getString("R_TYPE"),
+						result.getString("R_STATUS"),
+						result.getLong("A_ID"))
+						);
+			}
+
+			return RequestList;
+		} catch (SQLException e) {
+			logger.warn("Error on selecting on all the employees", e);
+		} 
+		return new ArrayList<>();
+	}
+
+	@Override
+	public List<Request> lookAtResolvedRequests() {
+		// TODO Auto-generated method stub
+		
+		try(Connection connection = ConnectionUtil.getConnection())
+		{
+			String command = "SELECT * FROM REQUEST WHERE R_STATUS = 'Accept' OR R_STATUS = 'Rejected'";
+			PreparedStatement statement = connection.prepareStatement(command);
+			ResultSet result = statement.executeQuery();
+
+			List<Request> RequestList = new ArrayList<>();
+			while(result.next()) {
+				RequestList.add(new Request(
+						result.getLong("R_ID"),
+						result.getString("R_TYPE"),
+						result.getString("R_STATUS"),
+						result.getLong("A_ID"))
+						);
+			}
+
+			return RequestList;
+		} catch (SQLException e) {
+			logger.warn("Error on selecting on all the employees", e);
+		} 
+		return new ArrayList<>();
+		
+	}
+
+	@Override
+	public Request lookAtPendingRequestByID(Request request) {
+		// TODO Auto-generated method stub
+		try(Connection connection = ConnectionUtil.getConnection())
+		{
+			String command = "SELECT * FROM REQUEST WHERE R_STATUS = 'Request not taken' AND A_ID = ?";
+			PreparedStatement statement = connection.prepareStatement(command);
+			
+			int parameterIndex = 0;
+			
+			statement.setLong(++parameterIndex,request.getAccountId());
+			ResultSet result = statement.executeQuery();
+
+			//List<Request> RequestList = new ArrayList<>();
+			if(result.next()) {
+				return new Request(
+						result.getLong("R_ID"),
+						result.getString("R_TYPE"),
+						result.getString("R_STATUS"),
+						result.getLong("A_ID"));
+			}
+		} catch (SQLException e) {
+			logger.warn("Error on selecting on all the employees", e);
+		} 
+		return null;
+	}
+
+	@Override
+	public Request lookAtResolvedRequestsByID(Request request) {
+		// TODO Auto-generated method stub
+		
+		try(Connection connection = ConnectionUtil.getConnection())
+		{
+			String command = "SELECT * FROM REQUEST WHERE R_STATUS = 'Accept' OR R_STATUS = 'Rejected' AND A_ID = ?";
+			PreparedStatement statement = connection.prepareStatement(command);
+
+			int parameterIndex = 0;
+
+			statement.setLong(++parameterIndex,request.getAccountId());
+			ResultSet result = statement.executeQuery();
+
+			//List<Request> RequestList = new ArrayList<>();
+			if(result.next()) {
+				return new Request(
+						result.getLong("R_ID"),
+						result.getString("R_TYPE"),
+						result.getString("R_STATUS"),
+						result.getLong("A_ID"));
+			} 
+		}
+		catch (SQLException e) {
+			logger.warn("Error on selecting on all the employees", e); 
+		}
+		
+			
+		return null;
+	}
 	public static void main(String[] args) {
 		RequestRepositoryJdbc request = new RequestRepositoryJdbc();
 		logger.info(request.viewRequest());
 	}
 }
+		

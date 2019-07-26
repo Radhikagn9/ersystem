@@ -24,7 +24,7 @@ private static ReimbursementControllerInterface reimbcontroller = new Reimbursem
 		return reimbcontroller;
 		
 	}
-	
+	  
 	
 	@Override
 	public void insertReimbursement(HttpServletRequest req, HttpServletResponse resp) {
@@ -40,12 +40,12 @@ private static ReimbursementControllerInterface reimbcontroller = new Reimbursem
 			@SuppressWarnings("unchecked")
 			List<ReimbursementsStatus> statusList = (List<ReimbursementsStatus>) session.getAttribute("status");
 					
-			double amount = Validation.validateAmount(req.getParameter("amount"));
+			double amount = ValidateReimbursement.validateAmount(req.getParameter("amount"));
 			System.out.println("ReimbContoller: insertReimb(): Validated amount: " + amount);
-			ReimbursementType type = Validation.validateType(typeList, req.getParameter("type"));
+			ReimbursementType type = ValidateReimbursement.validateType(typeList, req.getParameter("type"));
 			System.out.println("ReimbContoller: insertReimb(): Validated Type: "+ type);
-			ReimbursementsStatus status = Validation.setReimbursementsStatus(statusList, "Pending");
-			System.out.println("ReimbContoller: insertReimb(): Validated Status: " + status);
+		//	ReimbursementsStatus status = Validation.setReimbursementsStatus(statusList, "Pending");
+		//	System.out.println("ReimbContoller: insertReimb(): Validated Status: " + status);
 			Employee employee =(Employee) session.getAttribute("employee");
 			String description = req.getParameter("description");
 						

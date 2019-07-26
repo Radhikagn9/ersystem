@@ -4,23 +4,27 @@ public class Request {
 	
 	private long id;
 	private String type;
-	private Status status;
+	private String status;
 	private long accountId;
-	
 
+	
 	public Request() {}
 
 
-	public Request(long id, String type, long accountId, Status status) {
-		super();
+	public Request(long id, String type, String status, long accountId) {
 		this.id = id;
 		this.type = type;
 		this.status = status;
 		this.accountId = accountId;
 	}
+	
 
+	public Request(String type) {
+		this.type = type;
+	}
+	
 
-	public Request(String parameter) {
+	public Request(long long1, String string, long long2, Status status2) {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -45,12 +49,12 @@ public class Request {
 	}
 
 
-	public Status getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
 
-	public void setStatus(Status status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
@@ -108,5 +112,8 @@ public class Request {
 	public String toString() {
 		return "Request [id=" + id + ", type=" + type + ", status=" + status + ", accountId=" + accountId + "]";
 	}
+	
+	
+
 	
 }

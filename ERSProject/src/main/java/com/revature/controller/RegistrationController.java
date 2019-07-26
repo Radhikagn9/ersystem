@@ -70,7 +70,55 @@ public class RegistrationController implements RegistrationControllerInterface{
 	@Override
 	public Object insertRequests(HttpServletRequest request) {
 		// TODO Auto-generated method stub
-		return null;
+		return RequestService.getInstance().insertingRequests(new Request(request.getParameter("requestType")));
+		
+	}
+
+
+	@Override
+	public Object updateRequests(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		return RequestService.getInstance().listRequestbyID(new Request(Long.parseLong(request.getParameter("RequestID")),null,
+				request.getParameter("RequestType"),0));
+	}
+
+
+	@Override
+	public Object viewRequestsbyEmployee(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		return RequestService.getInstance().listRequestbyID(new Request(0,null,null,Long.parseLong(request.getParameter("accountID"))));
+		}
+
+
+	@Override
+	public Object viewPendingRequests(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		return RequestService.getInstance().listAllPendingRequests();
+		
+	}
+
+
+	@Override
+	public Object viewResolvedRequests(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		return RequestService.getInstance().listAllResolvedRequests();
+		
+	}
+
+
+	@Override
+	public Object viewPendingRequestsByID(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		return RequestService.getInstance().listPendingRequestsbyID(new Request(0,null,null,Long.parseLong(request.getParameter("accountID"))));	
+		
+	}
+
+
+	@Override
+	public Object viewResolvedRequestsByID(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		return RequestService.getInstance().listResolvedRequestsbyID(new Request(0,null,null,Long.parseLong(request.getParameter("accountID"))));
+		
 	}
 
 
